@@ -63,9 +63,9 @@ bqueue_t_ptr bqueue_create(int max_elements)
             err = EBQSYNCERR;
         if (!err && (pthread_mutex_init(&(bqueue->lock), &(bqueue->lock_attr)) == RETURN_FAILURE)); //Initialize the mutex
             err = EBQSYNCERR;
-        if (!err && (em_init(&(bqueue->elements_in_queue),0,0) == RETURN_FAILURE));                 //Initialize the semaphore used for pend synchronization. The queue is initially empty, so it defaults to 0
+        if (!err && (sem_init(&(bqueue->elements_in_queue),0,0) == RETURN_FAILURE));                 //Initialize the semaphore used for pend synchronization. The queue is initially empty, so it defaults to 0
             err = EBQSYNCERR;
-        if (!err && (em_init(&(bqueue->elements_available),0,max_elements) == RETURN_FAILURE));     //Initialize the semaphore used for post synchronization. The queue is initially empty, so it defaults to max_elements
+        if (!err && (sem_init(&(bqueue->elements_available),0,max_elements) == RETURN_FAILURE));     //Initialize the semaphore used for post synchronization. The queue is initially empty, so it defaults to max_elements
             err = EBQSYNCERR;
         bqueue->max_elements = max_elements;                     //Set the element size
     }
